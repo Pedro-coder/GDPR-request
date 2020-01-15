@@ -1,0 +1,1208 @@
+{% extends "base.html" %}
+{% load jsonify %}
+{% load staticfiles %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+<link rel="stylesheet" href="{% static 'css/bulma-collapse.min.css' %}">
+{% endblock css %}
+{% block content %}
+<div class="columns">
+    <div class="column is-8">
+
+        <div class="steps" id="onboardingSteps">
+            <div id="stp1" class="step-item is-active" data-step-id="0">
+                <div class="step-marker">1</div>
+                <div class="step-details">
+                    <p class="step-title">Create request</p>
+                </div>
+            </div>
+            <div id="stp2" class="step-item" data-step-id="1">
+                <div class="step-marker">2</div>
+                <div class="step-details">
+                    <p class="step-title">Provide Identification</p>
+                </div>
+            </div>
+            <div id="stp3" class="step-item" data-step-id="2">
+
+                <div class="step-marker">3</div>
+                <div class="step-details">
+                    <p class="step-title">Send Request</p>
+                </div>
+            </div>
+
+            <div class="steps-content is-marginless pt-5">
+                <div class="step-content is-active">
+
+                    <div class="card formCard">
+                        <header class="card-header has-background-link">
+                            <a href="#collapse-access" data-action="collapse" aria-label="more options"
+                                style="width:100%">
+                                <div class="level card-header-title">
+                                    <div class="level-left">
+                                        <div class="">
+                                            <h3 class="has-text-white"><i
+                                                    class="far fa-address-card fa-fw"></i>&nbsp;Right to
+                                                access (Art 15)</h3>
+                                            <p class="has-text-white">I would like to request access to my personal data
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="level-right">
+                                        <i class="has-text-white fas fa-plus" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                            </a>
+                        </header>
+                        <div id="collapse-access" class="is-collapsible">
+                            <div class="card-content">
+                                <div class="mt-10">
+                                    <p> (1) The data subject shall have the right to obtain
+                                        from the controller
+                                        confirmation as to whether or not personal data
+                                        concerning him or her are being processed, and,
+                                        <span id="dots1">...</span><span id="more1">
+                                            where that is the case, access to the personal
+                                            data and the following information:
+                                            <br>
+                                            (a) the purposes of the processing; <br>
+                                            (b) the categories of personal data concerned; <br>
+                                            (c) the recipients or categories of
+                                            recipient to whom the personal data
+                                            have been or will be disclosed, in
+                                            particular recipients in third countries
+                                            or international organisations; <br>
+                                            (d) where possible, the envisaged period for
+                                            which the personal data
+                                            will be stored, or, if not possible, the
+                                            criteria used to determine that period; <br>
+                                            (e) the existence of the right to request
+                                            from the controller
+                                            rectification or erasure of personal
+                                            data or restriction of processing of personal data
+                                            concerning the data subject or to object
+                                            to such processing; <br>
+                                            (f) the right to lodge a complaint with
+                                            a supervisory authority; <br>
+                                            (g) where the personal data
+                                            are not collected from the data subject,
+                                            any available information as to their
+                                            source; <br>
+                                            (h) the existence of automated
+                                            decision-making, including profiling
+                                            , referred to in Article 22(1) and (4)
+                                            and, at least in those cases, meaningful
+                                            information about the logic involved, as
+                                            well as the significance and the
+                                            envisaged consequences of such
+                                            processing for the data subject. <br>
+
+                                            (2) Where personal data
+                                            are transferred to a third country or to an
+                                            international organisation
+                                            , the data subject shall have the right to be
+                                            informed of the appropriate safeguards pursuant
+                                            to Article 46 relating to the transfer.<br>
+                                            (3)
+                                            The controller
+                                            shall provide a copy of the personal data
+                                            undergoing processing
+                                            . For any further copies requested by the data
+                                            subject, the controller
+                                            may charge a reasonable fee based on
+                                            administrative costs. Where the data subject
+                                            makes the request by electronic means, and
+                                            unless otherwise requested by the data subject,
+                                            the information shall be provided in a commonly
+                                            used electronic form. <br>
+
+                                            (4) The right to obtain a copy referred to in
+                                            paragraph 3 shall not adversely affect the
+                                            rights and freedoms of others.<br>
+                                        </span>
+                                    </p>
+
+                                    <a onclick="myFunction(1,'collapse-access')" id="myBtn1">Read more</a>
+                                </div>
+                                <div class="mt-20">
+                                    <label>My request concerns the following data:</label><textarea
+                                        class="textarea mt-5" rows="2" id="id_request_15"></textarea>
+                                </div>
+                                <div class="mt-20">
+                                    <label class="checkbox"><input type="checkbox" id="id_request_copy"> I would like to
+                                        request a copy of my personaldata</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card formCard mt-20">
+                        <header class="card-header has-background-link">
+                            <a href="#collapse-access1" data-action="collapse" aria-label="more options"
+                                style="width:100%">
+                                <div class="level card-header-title">
+                                    <div class="level-left">
+                                        <div class="">
+                                            <h3 class="has-text-white"><i
+                                                    class="far fa-address-card fa-fw"></i>&nbsp;Right to
+                                                rectification (Art 16)</h3>
+                                            <p class="has-text-white">I would like to request to update my personal data
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="level-right">
+                                        <i class="has-text-white fas fa-plus" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                            </a>
+                        </header>
+                        <div id="collapse-access1" class="is-collapsible">
+                            <div class="card-content">
+                                <div class="mt-10">
+
+                                    The data subject shall have the right to obtain from the controller without undue
+                                    delay the rectification of inaccurate personal data concerning him or her.
+                                    <span id="dots2">...</span><span id="more2">
+                                        Taking into account the purposes of the processing , the
+                                        data subject shall have the right to have
+                                        incomplete personal data completed, including by means of providing a
+                                        supplementary
+                                        statement.
+                                    </span>
+                                    <a onclick="myFunction(2,'collapse-access1')" id="myBtn2">Read more</a>
+                                </div>
+                                <div class="mt-20">
+                                    <label>My request is related to the following data:</label><textarea
+                                        class="textarea mt-5" rows="2" id="id_request_16"></textarea>
+                                </div>
+                                <div class="mt-20">
+                                    <label>I believe that the data is wrong or incomplete because:</label><textarea
+                                        class="textarea mt-5" rows="2" id="id_incomplete_reason"></textarea>
+                                </div>
+                                <div class="mt-20">
+                                    <label>I want to amend the data as follows:</label><textarea class="textarea mt-5"
+                                        rows="2" id="id_amend_data"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card formCard mt-20">
+                        <header class="card-header has-background-link">
+                            <a href="#collapse-access2" data-action="collapse" aria-label="more options"
+                                style="width:100%">
+                                <div class="level card-header-title">
+                                    <div class="level-left">
+                                        <div class="">
+                                            <h3 class="has-text-white"><i
+                                                    class="far fa-address-card fa-fw"></i>&nbsp;Right to
+                                                forgotton (Art 17)</h3>
+                                            <p class="has-text-white">I would like to request erasure of my personal
+                                                data</p>
+                                        </div>
+                                    </div>
+                                    <div class="level-right">
+                                        <i class="has-text-white fas fa-plus" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                            </a>
+                        </header>
+                        <div id="collapse-access2" class="is-collapsible">
+                            <div class="card-content">
+                                <div class="mt-10">
+                                    <p> (1)The data subject shall have the right to obtain
+                                        from the controller ‘controller’ means the
+                                        natural or legal person, public authority,
+                                        agency or other body which, alone or jointly
+                                        with others, determines the purposes and means
+                                        of the processing of personal data; <span id="dots3">...</span><span
+                                            id="more3">where the
+                                            purposes and means of such processing are
+                                            determined by Union or Member State law, the
+                                            controller or the specific criteria for its
+                                            nomination may be provided for by Union or
+                                            Member State law.
+                                            GDPR Article 4 Paragraph 7 the erasure of
+                                            personal data
+                                            concerning him or her without undue delay and
+                                            the controller
+                                            shall have the obligation to erase personal data
+                                            without undue delay where one of the following
+                                            grounds applies:<br>
+                                            (a)
+                                            the personal data
+                                            are no longer necessary in relation to
+                                            the purposes for which they were
+                                            collected or otherwise processed; <br>
+                                            (b)
+                                            the data subject withdraws consent
+                                            on which the processing
+                                            is based according to point (a) of
+                                            Article 6(1), or point (a) of Article
+                                            9(2), and where there is no other legal
+                                            ground for the processing ; <br>
+                                            (c)
+                                            the data subject objects to the
+                                            processing
+                                            pursuant to Article 21(1) and there are
+                                            no overriding legitimate grounds for the
+                                            processing
+                                            , or the data subject objects to the
+                                            processing
+                                            pursuant to Article 21(2); <br>
+                                            (d)
+                                            the personal data
+                                            have been unlawfully processed; <br>
+                                            (e)
+                                            the personal data
+                                            have to be erased for compliance with a
+                                            legal obligation in Union or Member
+                                            State law to which the controller
+                                            is subject; <br>
+                                            (f)
+                                            the personal data
+                                            have been collected in relation to the
+                                            offer of information society service
+                                            s referred to in Article 8(1).<br>
+                                            (2)
+                                            Where the controller
+                                            has made the personal data
+                                            public and is obliged pursuant to paragraph 1 to
+                                            erase the personal data
+                                            , the controller
+                                            , taking account of available technology and the
+                                            cost of implementation, shall take reasonable
+                                            steps, including technical measures, to inform
+                                            controller
+                                            s which are processing
+                                            the personal data
+                                            that the data subject has requested the erasure
+                                            by such controller
+                                            s of any links to, or copy or replication of,
+                                            those personal data. <br>
+                                            (3)
+                                            Paragraphs 1 and 2 shall not apply to the extent
+                                            that processing
+                                            is necessary:<br>
+                                            (a)
+                                            for exercising the right of freedom of
+                                            expression and information; <br>
+                                            (b)
+                                            for compliance with a legal obligation
+                                            which requires processing
+                                            by Union or Member State law to which
+                                            the controller
+                                            is subject or for the performance of a
+                                            task carried out in the public interest
+                                            or in the exercise of official authority
+                                            vested in the controller; <br>
+                                            (c)
+                                            for reasons of public interest in the
+                                            area of public health in accordance with
+                                            points (h) and (i) of Article 9(2) as
+                                            well as Article 9(3); <br>
+                                            (d)
+                                            for archiving purposes in the public
+                                            interest, scientific or historical
+                                            research purposes or statistical
+                                            purposes in accordance with Article
+                                            89(1) in so far as the right referred to
+                                            in paragraph 1 is likely to render
+                                            impossible or seriously impair the
+                                            achievement of the objectives of that
+                                            processing; or <br>
+                                            (e)
+                                            for the establishment, exercise or
+                                            defence of legal claims.<br>
+                                        </span>
+                                    </p>
+                                    <a onclick="myFunction(3,'collapse-access2')" id="myBtn3">Read more</a>
+                                </div>
+                                <div class="mt-20">
+                                    <label>My request refers to the following data:</label>
+                                    <textarea class="textarea mt-5" rows="2" id="id_request_17"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card formCard mt-20">
+                        <header class="card-header has-background-link">
+                            <a href="#collapse-access3" data-action="collapse" aria-label="more options"
+                                style="width:100%">
+                                <div class="level card-header-title">
+                                    <div class="level-left">
+                                        <div class="">
+                                            <h3 class="has-text-white"><i
+                                                    class="far fa-address-card fa-fw"></i>&nbsp;Right to
+                                                restriction of processing (Art 18)</h3>
+                                            <p class="has-text-white">I would like to request restriction of my personal
+                                                data’s
+                                                processing because</p>
+                                        </div>
+                                    </div>
+                                    <div class="level-right">
+                                        <i class="has-text-white fas fa-plus" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                            </a>
+                        </header>
+                        <div id="collapse-access3" class="is-collapsible">
+                            <div class="card-content">
+                                <div class="mt-10">
+                                    <p>
+                                        (1) The data subject shall have the right to
+                                        obtain from the controller
+                                        restriction of processing
+                                        where one of the following applies:<br>
+                                        (a) the accuracy of the personal data
+                                        is contested by the data subject, for a
+                                        period enabling the controller
+                                        <span id="dots4">...</span><span id="more4">
+                                            to verify the accuracy of the personal
+                                            data; <br>
+                                            (b)
+                                            the processing
+                                            is unlawful and the data subject opposes
+                                            the erasure of the personal data
+                                            and requests the restriction of their
+                                            use instead;<br>
+                                            (c)
+                                            the controller
+                                            no longer needs the personal data
+                                            for the purposes of the processing
+                                            , but they are required by the data
+                                            subject for the establishment, exercise
+                                            or defence of legal claims;<br>
+                                            (d)
+                                            the data subject has objected to
+                                            processing
+                                            pursuant to Article 21(1) pending the
+                                            verification whether the legitimate
+                                            grounds of the controller
+                                            override those of the data subject.<br>
+                                            (2)
+                                            Where processing
+                                            has been restricted under paragraph 1, such
+                                            personal data
+                                            shall, with the exception of storage, only be
+                                            processed with the data subject's consent
+                                            or for the establishment, exercise or defence of
+                                            legal claims or for the protection of the rights
+                                            of another natural or legal person or for
+                                            reasons of important public interest of the
+                                            Union or of a Member State. <br>
+                                            (3)
+                                            A data subject who has obtained restriction of
+                                            processing
+                                            pursuant to paragraph 1 shall be informed by the
+                                            controller
+                                            before the restriction of processing is lifted.
+                                        </span>
+                                    </p>
+
+                                    <a onclick="myFunction(4,'collapse-access3')" id="myBtn4">Read more</a>
+                                </div>
+                                <div class="mt-20">
+                                    <label class="checkbox"><input id="id_accuracy" type="checkbox"> the accuracy of my
+                                        personal data is
+                                        contested.</label>
+                                </div>
+                                <div class="mt-20">
+                                    <label>Reference to disupute (e.g. DSR ID):</label><textarea id="id_disupute"
+                                        class="textarea mt-5" rows="2"></textarea>
+                                </div>
+                                <div class="mt-20">
+                                    <label class="checkbox"><input id="id_unlawful" type="checkbox">the processing is
+                                        unlawful and I
+                                        oppose the
+                                        erasure of the personal data and request the restriction of its use
+                                        instead.</label>
+                                </div>
+                                <div class="mt-20">
+                                    <label class="checkbox"><input id="id_legal_claim" type="checkbox">although the
+                                        controller does not need
+                                        the data anymore, I require the data for the establishment, exercise or defence
+                                        of legal
+                                        claims.</label>
+                                </div>
+                                <div class="mt-20">
+                                    <label class="checkbox"><input id="id_pending" type="checkbox">I have objected to
+                                        processing and the
+                                        verification is pending.</label>
+                                </div>
+                                <div class="mt-20">
+                                    <label>Refrence to objection (e.g. DSR ID):</label><textarea id="id_reference"
+                                        class="textarea mt-5" rows="2"></textarea>
+                                </div>
+                                <div class="mt-20">
+                                    <label>My request concerns the following data:</label>
+                                    <textarea id="id_request_18" class="textarea mt-5" rows="2"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card formCard mt-20">
+                        <header class="card-header has-background-link">
+                            <a href="#collapse-access20" data-action="collapse" aria-label="more options"
+                                style="width:100%">
+                                <div class="level card-header-title">
+                                    <div class="level-left">
+                                        <div class="">
+                                            <h3 class="has-text-white"><i
+                                                    class="far fa-address-card fa-fw"></i>&nbsp;Right to data
+                                                portability (Art 20)</h3>
+                                            <p class="has-text-white">I would like to request porting my personal data
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="level-right">
+                                        <i class="has-text-white fas fa-plus" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                            </a>
+                        </header>
+                        <div id="collapse-access20" class="is-collapsible">
+                            <div class="card-content">
+                                <div class="mt-10">
+                                    <p>(1)
+                                        The data subject shall have the right to receive
+                                        the personal data
+                                        concerning him or her, which he or she has
+                                        provided to a controller
+                                        , in a structured, commonly used and
+                                        machine-readable format and have the right to
+                                        transmit those data to another controller
+                                        without hindrance from the controller
+                                        <span id="dots5">...</span><span id="more5">
+                                            to which the personal data
+                                            have been provided, where:<br>
+                                            (a)
+                                            the processing
+                                            is based on consent
+                                            pursuant to point (a) of Article 6(1) or
+                                            point (a) of Article 9(2) or on a
+                                            contract pursuant to point (b) of
+                                            Article 6(1); and <br>
+                                            (b)
+                                            the processing
+                                            is carried out by automated means.<br>
+                                            (2)
+                                            In exercising his or her right to data
+                                            portability pursuant to paragraph 1, the data
+                                            subject shall have the right to have the
+                                            personal data
+                                            transmitted directly from one controller
+                                            to another, where technically feasible.<br>
+                                            (3) The exercise of the right referred to in
+                                            paragraph 1 of this Article shall be without
+                                            prejudice to Article 17. That right shall not
+                                            apply to processing
+                                            necessary for the performance of a task carried
+                                            out in the public interest or in the exercise of
+                                            official authority vested in the controller. <br>
+
+                                            (4)
+                                            The right referred to in paragraph 1 shall not
+                                            adversely affect the rights and freedoms of
+                                            others.<br>
+                                        </span>
+
+                                    </p>
+                                    <a onclick="myFunction(5,'collapse-access20')" id="myBtn5">Read more</a>
+                                </div>
+                                <div class="mt-20">
+                                    <label class="checkbox"><input id="id_download_link" type="checkbox"> to me via a
+                                        download link</label>
+                                </div>
+                                <div class="mt-20">
+                                    <label class="checkbox"><input id="id_data_controller" type="checkbox"> to another
+                                        data controller</label>
+                                </div>
+                                <div class="mt-20">
+                                    <label>To data controller:</label><textarea id="id_to_data_controller"
+                                        class="textarea mt-5" rows="2"></textarea>
+                                </div>
+                                <div class="mt-20">
+                                    <label>My request concerns the following data:</label><textarea id="id_request_20"
+                                        class="textarea mt-5" rows="2"></textarea>
+                                </div>
+                                <div class="mt-20">
+                                    <label>Please do not transfer the following data:</label><textarea
+                                        id="id_following_data" class="textarea mt-5" rows="2"></textarea>
+                                </div>
+                                <div class="mt-20">
+                                    <label class="checkbox"><input id="id_confirm_20" type="checkbox">I confirm that my
+                                        request does not adversely affect the rights and freedoms of others.</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card formCard mt-20">
+                        <header class="card-header has-background-link">
+                            <a href="#collapse-access211" data-action="collapse" aria-label="more options"
+                                style="width:100%">
+                                <div class="level card-header-title">
+                                    <div class="level-left">
+                                        <div class="">
+                                            <h3 class="has-text-white"><i
+                                                    class="far fa-address-card fa-fw"></i>&nbsp;Right to
+                                                object to processing or profiling (Art 21 para 1)</h3>
+                                            <p class="has-text-white">I would like to object the processing of my
+                                                personal data</p>
+                                        </div>
+                                    </div>
+                                    <div class="level-right">
+                                        <i class="has-text-white fas fa-plus" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                            </a>
+                        </header>
+                        <div id="collapse-access211" class="is-collapsible">
+                            <div class="card-content">
+                                <div class="mt-10">
+                                    <p>
+                                        (1)
+                                        The data subject shall have the right to object,
+                                        on grounds relating to his or her particular
+                                        situation, at any time to processing
+                                        of personal data
+                                        <span id="dots6">...</span><span id="more6">
+                                            concerning him or her which is based on point
+                                            (e) or (f) of Article 6(1), including profiling
+                                            based on those provisions. The controller
+                                            shall no longer process the personal data
+                                            unless the controller
+                                            demonstrates compelling legitimate grounds for
+                                            the processing
+                                            which override the interests, rights and
+                                            freedoms of the data subject or for the
+                                            establishment, exercise or defence of legal
+                                            claims.
+                                        </span>
+                                    </p>
+                                    <a onclick="myFunction(6,'collapse-access211')" id="myBtn6">Read more</a>
+                                </div>
+                                <div class="mt-20">
+                                    <label>My request relates to the following processing/profiling:</label><textarea
+                                        id="id_request_211" class="textarea mt-5" rows="2"></textarea>
+                                </div>
+                                <div class="mt-20">
+                                    <label>The reasons for my objection are:</label><textarea class="textarea mt-5"
+                                        id="id_reason_211" rows="2"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card formCard mt-20">
+                        <header class="card-header has-background-link">
+                            <a href="#collapse-access216" data-action="collapse" aria-label="more options"
+                                style="width:100%">
+                                <div class="level card-header-title">
+                                    <div class="level-left">
+                                        <div class="">
+                                            <h3 class="has-text-white"><i
+                                                    class="far fa-address-card fa-fw"></i>&nbsp;Right to
+                                                object to processing or profiling for historic or scientific purposes
+                                                (Art 21 para
+                                                6)</h3>
+                                            <p class="has-text-white">I would like to object the processing of my
+                                                personal data for
+                                                scientific or historical research purposes or statistical purposes</p>
+                                        </div>
+                                    </div>
+                                    <div class="level-right">
+                                        <i class="has-text-white fas fa-plus" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                            </a>
+                        </header>
+                        <div id="collapse-access216" class="is-collapsible">
+                            <div class="card-content">
+                                <div class="mt-10">
+                                    <p>(1)
+
+                                        The data subject shall have the right to object,
+                                        on grounds relating to his or her particular
+                                        situation, at any time to processing
+                                        of personal data
+                                        <span id="dots7">...</span><span id="more7">
+                                            concerning him or her which is based on point
+                                            (e) or (f) of Article 6(1), including profiling
+                                            based on those provisions. The controller
+                                            shall no longer process the personal data
+                                            unless the controller
+                                            demonstrates compelling legitimate grounds for
+                                            the processing
+                                            which override the interests, rights and
+                                            freedoms of the data subject or for the
+                                            establishment, exercise or defence of legal
+                                            claims. <br>
+                                            (6)
+                                            Where personal data
+                                            are processed for scientific or historical
+                                            research purposes or statistical purposes
+                                            pursuant to Article 89(1), the data subject, on
+                                            grounds relating to his or her particular
+                                            situation, shall have the right to object to
+                                            processing
+                                            of personal data
+                                            concerning him or her, unless the processing
+                                            is necessary for the performance of a task
+                                            carried out for reasons of public interest.<br>
+                                        </span>
+                                    </p>
+                                    <a onclick="myFunction(7,'collapse-access216')" id="myBtn7">Read more</a>
+                                </div>
+                                <div class="mt-20">
+                                    <label>My request relates to the following processing:</label><textarea
+                                        id="id_request_216" class="textarea mt-5" rows="2"></textarea>
+                                </div>
+                                <div class="mt-20">
+                                    <label>The reasons for my objection are</label><textarea class="textarea mt-5"
+                                        id="id_reason_216" rows="2"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card formCard mt-20">
+                        <header class="card-header has-background-link">
+                            <a href="#collapse-access214" data-action="collapse" aria-label="more options"
+                                style="width:100%">
+                                <div class="level card-header-title">
+                                    <div class="level-left">
+                                        <div class="">
+                                            <h3 class="has-text-white"><i
+                                                    class="far fa-address-card fa-fw"></i>&nbsp;Right to
+                                                object to direct marketing (Art 21 para 4)</h3>
+                                            <p class="has-text-white">I would like to object the processing of my
+                                                personal data for
+                                                direct marketing purposes</p>
+                                        </div>
+                                    </div>
+                                    <div class="level-right">
+                                        <i class="has-text-white fas fa-plus" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                            </a>
+                        </header>
+                        <div id="collapse-access214" class="is-collapsible">
+                            <div class="card-content">
+                                <div class="mt-10">
+                                    <ul>
+                                        <li>(2)
+                                            Where personal data
+                                            are processed for direct marketing purposes, the
+                                            data subject shall have the right to object at
+                                            any time to processing
+                                            of personal data
+                                            concerning him or her for such marketing, which
+                                            includes profiling
+                                            to the extent that it is related to such direct
+                                            marketing.</li>
+                                        <li>
+                                            (3) Where the data subject objects to processing
+                                            for direct marketing purposes, the personal data
+                                            shall no longer be processed for such purposes.
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card formCard mt-20">
+                        <header class="card-header has-background-link">
+                            <a href="#collapse-access22" data-action="collapse" aria-label="more options"
+                                style="width:100%">
+                                <div class="level card-header-title">
+                                    <div class="level-left">
+                                        <div class="">
+                                            <h3 class="has-text-white"><i
+                                                    class="far fa-address-card fa-fw"></i>&nbsp;Automated
+                                                individual decision-making/profiling (Art 22)</h3>
+                                            <p class="has-text-white">I would like to object an automated
+                                                decision-making/profiling
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="level-right">
+                                        <i class="has-text-white fas fa-plus" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                            </a>
+                        </header>
+                        <div id="collapse-access22" class="is-collapsible">
+                            <div class="card-content">
+                                <div class="mt-10">
+                                    <p>
+                                        (1) The data subject shall have the right not to be
+                                        subject to a decision based solely on automated
+                                        processing
+                                        , including profiling
+                                        , which produces legal effects concerning him or
+                                        her or similarly significantly affects him or
+                                        <span id="dots9">...</span><span id="more9">
+                                            her. <br>
+                                            (2) Paragraph 1 shall not apply if the decision: <br>
+                                            (a)
+                                            is necessary for entering into, or
+                                            performance of, a contract between the
+                                            data subject and a data controller; <br>
+                                            (b)
+                                            is authorised by Union or Member State
+                                            law to which the controller
+                                            is subject and which also lays down
+                                            suitable measures to safeguard the data
+                                            subject's rights and freedoms and
+                                            legitimate interests; or <br>
+                                            (c)
+                                            is based on the data subject's explicit
+                                            consent. <br>
+                                            (3)
+                                            In the cases referred to in points (a) and (c)
+                                            of paragraph 2, the data controller
+                                            shall implement suitable measures to safeguard
+                                            the data subject's rights and freedoms and
+                                            legitimate interests, at least the right to
+                                            obtain human intervention on the part of the
+                                            controller
+                                            , to express his or her point of view and to
+                                            contest the decision. <br>
+                                            (4)
+                                            Decisions referred to in paragraph 2 shall not
+                                            be based on special categories of personal data
+                                            referred to in Article 9(1), unless point (a) or
+                                            (g) of Article 9(2) applies and suitable
+                                            measures to safeguard the data subject's rights
+                                            and freedoms and legitimate interests are in
+                                            place. <br>
+                                        </span>
+                                    </p>
+                                    <a onclick="myFunction(9,'collapse-access22')" id="myBtn9">Read more</a>
+
+                                </div>
+                                <div class="mt-20">
+                                    <label class="checkbox"><input id="id_human_intervention" type="checkbox"> I would
+                                        like to obtain human
+                                        intervention</label>
+                                </div>
+
+                                <div class="mt-10">
+                                    <label>Please specify by giving your reasons:</label><textarea class="textarea mt-5"
+                                        id="id_human_intervention_reason" rows="2"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="step-content">
+                    <div class="card formCard">
+                        <header class="card-header has-background-link">
+                            <div class="level card-header-title">
+                                <div class="level-left">
+                                    <div class="">
+                                        <h3 class="has-text-white"><i class="far fa-address-card fa-fw"></i>&nbsp;
+                                            Data subject:
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </header>
+
+                        <div class="card-content">
+                            <div class="mt">
+                                <div class="field">
+                                    <label class="label">
+                                        <label for="actingfor">I am acting:</label>
+                                    </label>
+                                    <div class="select is-multiple">
+                                        <select _size="8" class="multiple" id="actingfor" multiple="" name="actingfor">
+                                            <option id="id_myself" value="myself">for myself</option>
+                                            <option id="id_parent" value="asparent">as a parent (on behalf of my child)
+                                            </option>
+                                            <option id="id_guardian" value="as guardian">as a guardian (on behalf of
+                                                another person)</option>
+                                            <option id="id_representative" value="aslegalrep">as a legal representative
+                                                (on behalf of another person)</option>
+                                            <option id="id_notlisthere" value="other">in a capacity not listed here
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-10">
+                                <div class="field">
+                                    <label class="label">
+                                        <label for="subject_type">I am (the data subject is):</label>
+                                    </label>
+                                    <div class="select is-multiple">
+                                        <select _size="8" class="multiple" id="subject_type" multiple=""
+                                            name="subject_type">
+                                            <option id="id_existing_customer" value="existing_customer">existing
+                                                customer/user</option>
+                                            <option id="id_visitor" value="site_visitor">site visitor</option>
+                                            <option id="id_former_customer" value="former_customer">former customer
+                                            </option>
+                                            <option id="id_applicant" value="applicant">applicant</option>
+                                            <option id="id_employee" value="employee">employee</option>
+                                            <option id="id_former_employee" value="former_employee">former employee
+                                            </option>
+                                            <option id="id_other" value="other">other</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card formCard mt-20">
+                        <header class="card-header has-background-link">
+                            <div class="level card-header-title">
+                                <div class="level-left">
+                                    <div class="">
+                                        <h3 class="has-text-white"><i class="far fa-address-card fa-fw"></i>&nbsp;
+                                            Provide user credentials so that Valinor L.T.D can identify you
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </header>
+
+                        <div class="card-content">
+                            <div class="mt">
+                                <p>
+                                    Please provide the user credentials which are known to the company and by which the
+                                    company can identify you and match your request with a data set.
+                                </p>
+
+                            </div>
+                            <div class="mt-10">
+                                <p>
+                                    Please note that because your request concerns personal data, the company needs to
+                                    identify you. The type of identification you will have to provide depends on how
+                                    critical the requested data is. The company may ask you for a strong customer
+                                    identification to ensure that no one else can dispose of your data.
+                                </p>
+                            </div>
+                            <div class="mt-20">
+                                <label>Name/Username</label>
+                                <input class="input" id="id_username" name="name" required="" type="text" placeholder=""
+                                    f=""><br>
+                            </div>
+                            <div class="mt-20">
+                                <label>Identification</label>
+                                <input class="input" id="id_identification" name="identification" required=""
+                                    type="text" placeholder="Customer ID, purchase order, etc..." f=""><br>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card formCard mt-20">
+                        <header class="card-header has-background-link">
+                            <div class="level card-header-title">
+                                <div class="level-left">
+                                    <div class="">
+                                        <h3 class="has-text-white"><i class="far fa-address-card fa-fw"></i>&nbsp;
+                                            Authentification and communication
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </header>
+
+                        <div class="card-content">
+                            <div class="mt">
+                                <label>Email</label>
+                                <input class="input" id="id_email" name="email" required="" type="text" f=""><br>
+                            </div>
+                            <div class="mt-10">
+                                <p>
+                                    This email address will be used for any communication in relating to this request. A
+                                    verification message will be sent to this email address.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-content">
+                    <div class="card formCard">
+                        <header class="card-header has-background-link">
+                            <div class="level card-header-title">
+                                <div class="level-left">
+                                    <div class="">
+                                        <h3 class="has-text-white"><i class="far fa-address-card fa-fw"></i>&nbsp;
+                                            Additional data:
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </header>
+
+                        <div class="card-content">
+                            <div class="mt">
+                                <textarea class="textarea mt-5" id="id_info" name="additional_textarea" rows="2"
+                                    placeholder="Please provide any additional information in this field."></textarea>
+                            </div>
+                            <div class="mt-10">
+                                <label class="checkbox"><input type="checkbox" id="id_rights"> This message is in
+                                    relation to rights
+                                    under GDPR</label>
+                            </div>
+                            <div class="mt">
+                                <label class="checkbox"><input id="id_agress" type="checkbox"> I agree to this
+                                    processing and transfer
+                                    of the data entered.
+                                    The data entered in this form is processed by GDPR-Rep.eu according to its duties as
+                                    Art 27 GDPR representative. The data will be accordingly shared with Valinor L.T.D,
+                                    located at Petah Tikva, Hamagshimim 20, Israel.
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="steps-actions pl-4 pr-4 pt-4 pb-2">
+                    <div class="steps-action">
+                        <a href="#" data-nav="previous" class="button is-light is-pulled-left is-marginless"
+                            disabled="disabled">Previous</a>
+                    </div>
+                    <div class="steps-action">
+                        <a href="#" data-nav="next" class="button blue is-right is-marginless">Next</a>
+
+                        <form method="POST">
+                            {% csrf_token %}
+                            <!-- <input class="button green is-marginless" id="submit" name="submit" type="button" value="Submit" onclick="collect_data()" disabled="disabled"> -->
+                            <input class="button green is-marginless" id="submit" name="submit" type="button"
+                                value="Submit" disabled="disabled">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="column"></div>
+</div>
+
+
+{% endblock content %}
+
+{% block js %}
+<script src="{% static 'js/bulma-collapse.min.js' %}"></script>
+<script src="{% static 'js/bulma-steps.min.js' %}"></script>
+
+
+<!-- read more or less -->
+<script>
+    function myFunction(p, q) {
+        var dots = document.getElementById("dots" + p);
+        var moreText = document.getElementById("more" + p);
+        var btnText = document.getElementById("myBtn" + p);
+        document.getElementById(q).style.height = "auto";
+        if (dots.style.display === "none") {
+            dots.style.display = "inline";
+            btnText.innerHTML = "Read more";
+            moreText.style.display = "none";
+        } else {
+            dots.style.display = "none";
+            btnText.innerHTML = "Read less";
+            moreText.style.display = "inline";
+        }
+    }
+</script>
+
+
+<script>
+    (function () {
+        new bulmaSteps(document.getElementById('onboardingSteps'), {
+            onShow: (id) => testActualStep(id)
+        })
+
+        function testActualStep(id) {
+            if (id === 2) {
+                $("#submit").removeAttr("disabled")
+            }
+            if (id === 1) {
+                $("#submit").attr("disabled", "disabled");
+            }
+        }
+
+        $('.checkbox').change(function () {
+            if ($("#" + this.id + "_block").length) {
+                $("#" + this.id + "_block").toggleClass("disabled");
+            }
+        });
+    })();
+</script>
+
+<script>
+    // Return an array of bulmaCollapsible instances (empty if no DOM node found)
+    const bulmaCollapsibleInstances = bulmaCollapsible.attach('.is-collapsible');
+
+    // Loop into instances
+    bulmaCollapsibleInstances.forEach(bulmaCollapsibleInstance => {
+        // Check if current state is collapsed or not
+        // console.log(bulmaCollapsibleInstance.collapsed());
+    });
+</script>
+
+<script>
+
+
+
+
+    $("input#submit").on('click', function () {
+
+        var myObj = {
+            "art15": {
+                "request_15": null,
+                "request_copy": false
+            },
+            "art16": {
+                "request_16": null,
+                "incomplete_reason": null,
+                "amend_data": null
+            },
+            "art17": {
+                "request_17": null
+            },
+            "art18": {
+                "accuracy": false,
+                "disupute": null,
+                "unlawful": false,
+                "legal_claim": false,
+                "pending": false,
+                "reference": null,
+                "request_18": null
+            },
+            "art20": {
+                "download_link": false,
+                "data_controller": false,
+                "to_data_controller": null,
+                "request_20": null,
+                "following_data": null,
+                "confirm_20": false
+            },
+            "art211": {
+                "request_211": null,
+                "reason_211": null
+            },
+
+            "art216": {
+                "request_216": null,
+                "reason_216": null
+            },
+            "art22": {
+                "human_intervention": false,
+                "human_intervention_reason": null
+            },
+            "datasubject": {
+                "acting": {
+                    "myself": false,
+                    "parent": false,
+                    "guardian": false,
+                    "representative": false,
+                    "notlisthere": false
+                },
+                "thedatasubject": {
+                    "existing_customer": false,
+                    "visitor": false,
+                    "former_customer": false,
+                    "applicant": false,
+                    "employee": false,
+                    "former_employee": false,
+                    "other": false
+                }
+            },
+            "usercredentials": {
+                "username": null,
+                "identification": null
+            },
+            "auth": {
+                "email": null
+            },
+            "additionaldata": {
+                "info": null,
+                "rights": false,
+                "agress": false
+            }
+        }
+
+        myObj.art15.request_15 = document.getElementById("id_request_15").value;
+        myObj.art15.request_copy = document.getElementById("id_request_copy").checked;
+
+        myObj.art16.request_16 = document.getElementById("id_request_16").value;
+        myObj.art16.incomplete_reason = document.getElementById("id_incomplete_reason").value;
+        myObj.art16.amend_data = document.getElementById("id_amend_data").value;
+
+        myObj.art17.request_17 = document.getElementById("id_request_17").value;
+
+        myObj.art18.accuracy = document.getElementById("id_accuracy").checked;
+        myObj.art18.disupute = document.getElementById("id_disupute").value;
+        myObj.art18.unlawful = document.getElementById("id_unlawful").checked;
+        myObj.art18.legal_claim = document.getElementById("id_legal_claim").checked;
+        myObj.art18.pending = document.getElementById("id_pending").checked;
+        myObj.art18.reference = document.getElementById("id_reference").value;
+        myObj.art18.request_18 = document.getElementById("id_request_18").value;
+
+        myObj.art20.download_link = document.getElementById("id_download_link").checked;
+        myObj.art20.data_controller = document.getElementById("id_data_controller").checked;
+        myObj.art20.to_data_controller = document.getElementById("id_to_data_controller").value;
+        myObj.art20.request_20 = document.getElementById("id_request_20").value;
+        myObj.art20.following_data = document.getElementById("id_following_data").value;
+        myObj.art20.confirm_20 = document.getElementById("id_confirm_20").checked;
+
+        myObj.art211.request_211 = document.getElementById("id_request_211").value;
+        myObj.art211.reason_211 = document.getElementById("id_reason_211").value;
+
+        myObj.art216.request_216 = document.getElementById("id_request_216").value;
+        myObj.art216.reason_216 = document.getElementById("id_reason_216").value;
+
+        myObj.art22.human_intervention = document.getElementById("id_human_intervention").checked;
+        myObj.art22.human_intervention_reason = document.getElementById("id_human_intervention_reason").value;
+
+        myObj.datasubject.acting.myself = document.getElementById("id_myself").selected;
+        myObj.datasubject.acting.parent = document.getElementById("id_parent").selected;
+        myObj.datasubject.acting.guardian = document.getElementById("id_guardian").selected;
+        myObj.datasubject.acting.representative = document.getElementById("id_representative").selected;
+        myObj.datasubject.acting.notlisthere = document.getElementById("id_notlisthere").selected;
+        myObj.datasubject.thedatasubject.existing_customer = document.getElementById("id_existing_customer").selected;
+        myObj.datasubject.thedatasubject.visitor = document.getElementById("id_visitor").selected;
+        myObj.datasubject.thedatasubject.former_customer = document.getElementById("id_former_customer").selected;
+        myObj.datasubject.thedatasubject.applicant = document.getElementById("id_applicant").selected;
+        myObj.datasubject.thedatasubject.employee = document.getElementById("id_employee").selected;
+        myObj.datasubject.thedatasubject.former_employee = document.getElementById("id_former_employee").selected;
+        myObj.datasubject.thedatasubject.other = document.getElementById("id_other").selected;
+
+        myObj.usercredentials.username = document.getElementById("id_username").value;
+        myObj.usercredentials.identification = document.getElementById("id_identification").value;
+
+        myObj.auth.email = document.getElementById("id_email").value;
+
+        myObj.additionaldata.info = document.getElementById("id_info").value;
+        myObj.additionaldata.rights = document.getElementById("id_rights").checked;
+        myObj.additionaldata.agress = document.getElementById("id_agress").checked;
+
+        $.ajax({
+            type: "POST",
+            contentType: "application/json",
+
+            url: 'http://localhost:8000/client/request/new/',
+            // data : { x: "1", y: "2" , z: "3" },
+            data: JSON.stringify(myObj),
+            dataType: "json"
+        });
+    });
+
+</script>
+{% endblock js %}

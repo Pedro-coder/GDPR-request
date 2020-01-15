@@ -1,0 +1,246 @@
+=======
+.asteriskField {
+  display: none;
+}
+</style>
+{% endblock extra_css %}
+
+{% block page_title %}
+{% if user.is_authenticated %}
+Welcome, {{user.username}} 
+<a href="{% url 'logout' %}">
+  <button class="button vb">logout</button class="button">
+</a>
+{% else %}
+Welcome to Newsfeed
+{% endif %}
+{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+
+<div class="columns">
+  <div class="column m-auto is-full-mobile is-three-quarters-tablet is-half-desktop">
+    {% include "activity/create_post.html" %}
+    {% include "activity/delete_post.html" %}
+
+    {% if activities %}
+      <div class="level">
+        <h1 class="title">What's new:</h1>
+      </div>
+      {% load activity_tags %}
+      <!-- Renders from activity/streampost.html -->
+      {% for activity in activities %}
+        {% render_activity activity %}
+      {% endfor %}
+>>>>>>> 311073877a5e9e62975b915be81beccf7b61cf21
+
+      {% for group in groupposts %}
+      {{group.title}}
+      {% endfor %}
+    {% else %}
+      <div class="level">
+        <h1 class="title">No activities.</h1>
+      </div>
+      <p class="subtitle">Create a post/follow groups to get started!</p>
+    {% endif %}
+  </div>
+</div>
+
+{% else %}
+<div class="columns">
+  <div class="column is-full-mobile is-two-thirds-tablet is-half-desktop m-auto">
+    <div class="card">
+      <div class="card-content">
+        <h2 class="title">Sign in to access all features.</h2>
+      </div>
+      <footer class="card-footer">
+        <p class="card-footer-item">
+          <span>
+            <a href="{% url 'login' %}">Login</a></a>
+          </span>
+        </p>
+        <p class="card-footer-item">
+          <span>
+            or <a href="{% url 'signup' %}">create an account</a>
+          </span>
+        </p>
+      </footer>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<script>
+$('document').ready(function() {
+
+  $('.dropdown-trigger').click(function(e){
+    var $dropdown = $(this).closest('.dropdown')
+    e.stopPropagation()
+    if ($dropdown.hasClass('is-active')) $dropdown.removeClass('is-active');
+    else $dropdown.addClass('is-active');
+    $('.dropdown-menu').closest('.box').mouseleave(function(){
+      $dropdown.removeClass('is-active');
+    });
+  });
+  $('.deleteModal').click(function() {
+    uuid = $(this).parent().data('uuid'); //uuid of post
+    $('#deleteModal').addClass('is-active');
+    $('#deleteConfirm').click(function(){
+      $('.loading').addClass('loader');
+      $.ajax({
+        url: "{% url 'ajax-delete-post' %}",
+        type: "POST",
+        data: {
+          'uuid': uuid,
+          'csrfmiddlewaretoken': '{{ csrf_token }}',
+        },
+        success: function(data) {
+          if (data.success == true) location.reload();
+          else {
+            $('.loading').removeClass('loader');
+            $('#deleteTitle').text('Error occured. Please refresh page.')
+            $('#deleteConfirm').parent().html('<a class="cancel card-footer-item">OK</a>')
+          }
+        }
+      });
+    });
+  });
+
+  $('.openModal').click(function() {
+    uuid = $(this).parent().data('uuid'); //uuid of post
+    $('#postForm').html('');
+    if (uuid) {
+      $title = $('#postModal-title').clone().removeClass('d-none');
+      $('#postForm').html($title);
+    }
+    $.ajax({
+      url: "{% url 'ajax-create-post' %}",
+      type: "POST",
+      data: {
+        'action':'load',
+        'csrfmiddlewaretoken': '{{ csrf_token }}',
+        'uuid': uuid,
+      },
+      success: function(data) {
+        if (data.success == true) {
+          $('#postForm').append(data.form_html);
+          $('#postModal').addClass('is-active');
+          $('.controls').each(function() {
+            if ($(this).find('select').length !== 0) {
+              $(this).addClass('select')
+            }
+          });
+        } else {
+            location.reload();
+        }
+      },
+    });
+
+    $('body').on('submit', '#postForm form', function(event){
+      event.preventDefault();
+      $('.loading').addClass('loader');
+      $.ajax({
+        url: "{% url 'ajax-create-post' %}",
+        type: "POST",
+        data: $('#postForm>form').serialize() + "&action=save&uuid=" + uuid,
+        success: function(data) {
+          if (data.success == true) location.reload();
+          else {
+            $('#postForm').html(data.form_html);
+            if (!data.form_html) location.reload();
+          };
+        },
+      });
+    });
+  });
+
+  $('body').click(function (event) {
+    if ($(event.target).hasClass('modal-background') || $(event.target).hasClass('cancel')) {
+      $('#deleteModal').removeClass('is-active');
+      $('#postModal').removeClass('is-active');
+    }
+    if (!$(event.target).hasClass('dropdown-trigger')) {
+      $('.dropdown').removeClass('is-active');
+    }
+  });
+
+});
+</script>
+
+=======
+.m-auto {
+    margin:auto;
+}
+
+.vb {
+    vertical-align: bottom;
+}
+.vm {
+    vertical-align: middle;
+}
+
+.fa-caret-right {
+    float:botto
+}
+
+.control-label {
+    color: #363636;
+    display: block;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.buttonHolder>.loader {
+    margin-left: 1rem;
+}
+#deleteConfirm>.loader {
+    margin-left: 0.5rem;
+}
+
+.dropdown-trigger {
+    opacity: 0.4;
+    position: relative;
+    bottom: 5px;
+}
+.post-box:hover .dropdown-trigger, .post-box:active .dropdown-trigger,
+.is-active>.dropdown-trigger {
+    opacity: 1;
+}
+.dropdown-trigger:hover {
+    cursor: pointer;
+}
+.dropdown-content {
+    position: relative;
+    padding: 0px;
+    bottom: 10px;
+}
+.dropdown-menu {
+    min-width: 5rem !important;
+}
+
+.disable-select {
+    -webkit-user-select: none;  
+    -moz-user-select: none;    
+    -ms-user-select: none;      
+    user-select: none;
+}
+
+.d-none {
+    display: none !important;
+}
+.dropdown-item.text-right {
+    padding-right: 1rem;
+}
+.text-right {
+    text-align: right !important;
+}
+.text-center {
+    text-align: center !important;
+}
+
+/* Responsive CSS */
+@media screen and (max-width: 769px) {
+    
+>>>>>>> 311073877a5e9e62975b915be81beccf7b61cf21
+}

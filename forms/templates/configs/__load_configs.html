@@ -1,0 +1,84 @@
+{% load form_tags %}
+
+<div class="row margin-top-10">
+    <div class="col-md-12">
+        <h4>{{ obj.1 }}</h4>
+    </div>
+</div>
+<div class="row">
+{% get_options config_dict obj.0 as fconfig %}
+{% if config == 'text' %}
+    <div class="col-md-3 margin-top-10">
+        Field Type
+        <select class="form-control" name="text-{{ obj.0 }}" id="text-{{ obj.0 }}">
+            <option value="">-------</option>
+            <option value="email" {% if fconfig.text == 'email' %}selected{% endif %}>Email</option>
+            <option value="password" {% if fconfig.text == 'password' %}selected{% endif %}>Password</option>
+            <option value="url" {% if fconfig.text == 'url' %}selected{% endif %}>URL</option>
+        </select>
+    </div>
+{% else %}
+    {% if config == 'groupselect' or config == 'select' %}
+        {% get_options odict obj.0 as opts %}
+        {% if not opts %}
+            <div class="col-md-3 margin-top-10">
+                Categories
+                <select class="form-control form-selects cat-selects" name="cat-{{ obj.0 }}" id="cat-{{ obj.0 }}">
+                    <option value="">-------</option>
+                    {% for c in cats %}
+                        <option value="{{ c.id }}" {% if fconfig.cat|add:0 == c.id %}selected{% endif %}>{{ c.value }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        {% endif %}
+    {% endif %}
+    {% if config == 'select' %}
+        <div class="col-md-3 margin-top-10">
+            Options
+            <select class="form-control form-selects" name="opt-{{ obj.0 }}" id="opt-{{ obj.0 }}">
+                <option value="">-------</option>
+                {% if fconfig.cat %}
+                    {% get_options cat_dict fconfig.cat as sec_opts %}
+                    {% for opt in sec_opts %}
+                        <option value="{{ opt.1 }}" {% if fconfig.opt == opt.1 %}selected{% endif %}>{{ opt.1 }}</option>
+                    {% endfor %}
+                {% else %}
+                    {% for opt in opts %}
+                        <option value="{{ opt.0 }}" {% if fconfig.opt == opt.0 %}selected{% endif %}>{{ opt.1 }}</option>
+                    {% endfor %}
+                {% endif %}
+            </select>
+        </div>
+        <div class="col-md-3 margin-top-10">
+            Display
+            <select class="form-control" name="display-{{ obj.0 }}" id="display-{{ obj.0 }}">
+                <option value="">-------</option>
+                <option value="show" {% if fconfig.display == 'show' %}selected{% endif %}>Show</option>
+                <option value="hide" {% if fconfig.display == 'hide' %}selected{% endif %}>Hide</option>
+            </select>
+        </div>
+        <div class="col-md-3 margin-top-10">
+            Related Field(s)
+            <select class="form-control form-selects" name="relate-{{ obj.0 }}" id="relate-{{ obj.0 }}" multiple="multiple">
+                {% for k, v in fdict.items %}
+                    <optgroup label="{{ k|title }}">
+                        {% for obj in v %}
+                            <option value="{{ obj.0 }}" {% if obj.0 in fconfig.relate %}selected{% endif %}>{{ obj.1 }}</option>
+                        {% endfor %}
+                    </optgroup>
+                {% endfor %}
+            </select>
+        </div>
+    {% endif %}
+    {% if config == 'groupselect' %}
+    <div class="col-md-3 margin-top-10">
+        Max Selection
+        <input name="max-{{ obj.0 }}" id="max-{{ obj.0 }}" type="number" class="form-control" placeholder="Leave blank if not needed" value="{{ fconfig.max }}">
+    </div>
+    {% endif %}
+{% endif %}
+<div class="col-md-3 margin-top-10">
+    Do not display by default
+    <input name="hide-{{ obj.0 }}" id="hide-{{ obj.0 }}" type="checkbox" class="form-control" {% if fconfig.hide %}checked{% endif %}>
+</div>
+</div>

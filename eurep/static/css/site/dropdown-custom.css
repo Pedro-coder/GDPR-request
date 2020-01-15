@@ -1,0 +1,10 @@
+/* --- CSS for dropdown list in show all templates --- */
+.tdrop ul a:before {
+  content: " ";
+}
+
+.tdrop .dropdown-menu li > a {
+  background-color: #428bca;
+  color: white;
+  padding: 10px 5px;
+}

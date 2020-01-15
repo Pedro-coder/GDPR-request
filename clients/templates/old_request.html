@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load jsonify %}
+{% load staticfiles %}
+
+
+{% block content %}
+    <div id="formRender"></div>
+
+{% endblock content %}
+
+{% block js %}
+<script src="{% static 'formbuilder/formrender.min.js' %}"></script>
+<script>
+    var fboptions = {
+    formData : {{ nfjson|jsonify }},
+    dataType : 'json',
+  }
+
+  frender = $('#formRender').formRender(fboptions);
+</script>
+{% endblock js %}

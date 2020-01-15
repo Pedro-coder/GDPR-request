@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+{% load form_tags %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static "jodit/jodit.min.css" %}">
+{% endblock css %}
+
+{% block ptitle %}
+<div class="uk-width-1-2">
+  <h1 class="uk-heading-bullet">{{ form.name }} {% trans "Config" %}</h1>
+</div>
+<div class="uk-width-1-2 uk-text-right">
+  <a href="{% url 'all-forms' %}" class="uk-button uk-button-default btn-long"><i class="fa fa-chevron-left"></i>&nbsp;&nbsp;{% trans "Back" %}</a>
+</div>
+{% endblock ptitle %}
+
+{% block content %}
+<section class="uk-section">
+    <div class="uk-container">
+        {% include "messages.html" %}
+        <div class="uk-card uk-card-default uk-card-body">
+            <form action="" method="POST">
+                {% csrf_token %}
+            {% for itm in form.fields %}
+            
+            <div class="uk-grid uk-flex uk-flex-middle uk-margin-top" data-uk-grid>
+                <div class="uk-width-1-4 uk-flex-middle">
+                {{ itm.label }}
+                </div>
+                <div class="uk-width-1-4">
+                    <textarea class="uk-textarea" name="field~{{ itm.name }}" cols="30" rows="10">{{ itm.tip|default:'' }}</textarea>
+                </div>
+            </div>    
+            
+            {% endfor %}
+            <div class="uk-grid uk-flex uk-flex-middle uk-margin-top" data-uk-grid>
+                <div class="uk-width-1-4 uk-flex-middle">
+                    <button type="submit" name="next" class="btn btn-primary btn-long uk-button uk-button-primary" id="submit-id-submit">{% trans "Save" %}</button>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}
+
+{% block js %}
+<script src="{% static 'jodit/jodit.min.js' %}"></script>
+<script>
+$(document).ready(function(){
+    $('textarea').each(function () {
+        var editor = new Jodit(this);
+    });
+});
+</script>
+{% endblock js %}

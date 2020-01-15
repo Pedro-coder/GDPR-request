@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load jsonify %}
+{% load i18n %}
+
+{% block css %}
+<style>
+.form-wrap.form-builder .frmb-control li {
+    width: 100%;
+}
+
+.btn-danger, .btn-primary{
+    color: white !important;
+}
+
+</style>
+{% endblock css %}
+
+{% block ptitle %}
+<div class="uk-width-1-2">
+  <h1 class="uk-heading-bullet">{{ form.name }}</h1>
+</div>
+<div class="uk-width-1-2 uk-text-right">
+  <a href="{% url 'all-forms' %}" class="uk-button uk-button-default btn-long"><i class="fa fa-chevron-left"></i>&nbsp;&nbsp;{% trans "Back" %}</a>
+</div>
+{% endblock ptitle %}
+
+{% block content %}
+{% include "messages.html" %}
+<section class="uk-section">
+    <div class="uk-container">
+        <div class="uk-card uk-card-default uk-card-body">
+            <div class="uk-grid uk-flex" data-uk-grid>
+                <div class="uk-width-1-1">
+                    <div id="formbuilder"></div>
+                </div>
+			</div>
+            <div class="uk-grid uk-flex" data-uk-grid>
+                <div class="uk-width-1-1">
+                    <button class="uk-button uk-button-primary btn-long" id="save-template">{% trans "Save" %}</button>
+                </div>
+            </div>
+		</div>
+	</div>
+</section>
+{% endblock content %}
+
+{% block js %}
+<script
+  src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+  integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+  crossorigin="anonymous"></script>
+<script src="{% static 'formbuilder/formbuilder.min.js' %}"></script>
+
+<script>
+var fbuild
+
+$(document).ready(function(){
+    var fboptions = {
+        formData : {{ form.fields|jsonify }},
+        dataType : 'json',
+        
+    }
+
+    fbuild = $('#formbuilder').formBuilder(fboptions);
+
+    $('body').on('click', '#save-template', function(){
+        $.ajax({
+                url: "{% url 'ajax-save-form' %}",
+                type: "POST",
+                data: "&fid=" + {{ form.id }} + "&data=" + fbuild.formData,
+                success: function(data) {
+                    location.reload()
+                }
+        });
+    });
+
+    
+    
+});
+</script>
+{% endblock js %}

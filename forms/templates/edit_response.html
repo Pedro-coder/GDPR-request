@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block css %}
+<style>
+    .f-field-group {
+        margin-top: 10px;
+    }
+</style>
+{% endblock css %}
+
+{% block page_title %}
+<div class="page-title">
+	<h1>{{ form.name }}'s Response Update</h1>
+</div>
+<div class="page-toolbar">
+	<a href="{% url 'form-responses' form.uuid %}" class="btn btn-long btn-primary pull-right" ><i class="fa fa-chevron-left"></i>&nbsp;&nbsp;Back</a>
+</div>
+{% endblock page_title %}
+
+{% block content %}
+{% include "messages.html" %}
+<div class="row">
+	<div class="col-md-12">
+		<!-- BEGIN EXAMPLE TABLE PORTLET-->
+		<div class="portlet light">
+			<div class="row">
+				<div class="col-md-12">
+                    <form id="regis-form">
+                        <div id="formeo-editor"></div>
+                    </form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock content %}
+
+{% block js %}
+<script src="{% static 'formeo/js/formeo.min.js' %}"></script>
+<script src="{% static 'js/s2/select2.min.js' %}"></script>
+<script>
+{% if form %}
+    let renderContainer = document.querySelector('#formeo-editor');
+    let formeoOpts = {
+        container: renderContainer,
+        sessionStorage: true
+    };
+
+    const formeo = new window.Formeo(formeoOpts, {{ form.fields|safe }});
+
+    window.setTimeout(function () {
+        formeo.render(renderContainer);
+        $('select').select2();
+
+        load_data();
+    }, 500);
+
+    $("form").on('submit', function (e) {
+        e.preventDefault();
+
+        var form = $('#regis-form');
+        $.ajax({
+            url: "{% url 'ajax-save-rform' %}",
+            type: "POST",
+            data: $(form).serialize() + '&fid=' + {{ form.id }} + '&rid={{ response.uuid }}',
+
+            success: function(data) {
+                location.replace('{% url 'edit-response' response.uuid %}')
+            }
+        });
+    });
+
+    var load_data = function() {
+        {{ load_data|safe }}
+    }
+{% endif %}
+</script>
+
+<link href="{% static 'css/s2/select2.css' %}" rel="stylesheet" type="text/css"/>
+<link href="{% static 'css/s2/bs-select2.css' %}" rel="stylesheet" type="text/css"/>
+{% endblock js %}

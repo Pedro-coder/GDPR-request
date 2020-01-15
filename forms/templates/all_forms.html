@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/dt/dataTables.bootstrap.css' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'css/editable/be.css' %}">
+
+{% endblock css %}
+
+{% block ptitle %}
+<div class="uk-width-1-2">
+  <h1 class="uk-heading-bullet">{% trans "All Forms" %}</h1>
+</div>
+<div class="uk-width-1-2 uk-text-right">
+  <a href="{% url 'form-options' %}" class="uk-button uk-button-default btn-long"><i class="fa fa-pencil"></i>&nbsp;&nbsp;{% trans "Form Options" %}</a>
+</div>
+{% endblock ptitle %}
+
+{% block content %}
+{% include "messages.html" %}
+
+        <table id="example" class="uk-table uk-table-hover uk-table-striped" style="width:100%">
+          <thead>
+                    <td class="col-md-1">ID</td>
+                    <td class="col-md-10">Form</td>
+                    <td class="col-md-1">Actions</td>
+                </thead>
+                <tbody>
+                    {% for form in forms %}
+                        <tr>
+                            <td>{{ form.id }}</td>
+                            <td><a href="#" class="t-edit" data-pk="{{ form.id }}" data-url="{% url 'ajax-edit-form' %}" data-title="Enter new Form name" data-name="edit">{{ form.name }}</a></td>
+                            <td>
+                                <div class="dropdown tdrop">
+                                    <button class="btn btn-primary btn-sm pull-left" type="button"
+                                            data-toggle="dropdown">Actions&nbsp;&nbsp;&nbsp;<i
+                                            class="fa fa-angle-down"></i>
+                                    </button>
+                                    <ul class="dropdown-menu pull-right">
+                                        <li>
+                                            <a href="{% url 'edit-form' form.uuid %}">
+                                                Edit Form
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'edit-config' form.uuid %}">
+                                                Edit Config
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+  
+  
+
+{% endblock content %}
+
+{% block js %}
+<script src="{% static 'js/editable/be.min.js' %}"></script>
+<script>
+$(document).ready(function(){
+    $.ajaxSetup({
+        data: {csrfmiddlewaretoken: '{{ csrf_token }}'}
+    });
+
+	$('.t-edit').editable({
+       send: 'always',
+       url: '{% url "ajax-edit-form" %}',
+       success: function(data){
+           if (data['success']){
+               location.reload();
+           }
+       }
+    });
+});
+</script>
+{% endblock js %}

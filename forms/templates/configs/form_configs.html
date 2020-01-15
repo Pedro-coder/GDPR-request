@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+{% load form_tags %}
+
+{% block css %}
+{% endblock css %}
+
+{% block ptitle %}
+<div class="uk-width-1-2">
+  <h1 class="uk-heading-bullet">{{ form.name }} {% trans "Config" %}</h1>
+</div>
+<div class="uk-width-1-2 uk-text-right">
+  <a href="{% url 'all-forms' %}" class="uk-button uk-button-default btn-long"><i class="fa fa-chevron-left"></i>&nbsp;&nbsp;{% trans "Back" %}</a>
+</div>
+{% endblock ptitle %}
+
+{% block content %}
+<section class="uk-section">
+    <div class="uk-container">
+        {% include "messages.html" %}
+        <div class="uk-card uk-card-default uk-card-body">
+            <form action="" method="POST">
+                {% csrf_token %}
+            {% for itm in form.fields %}
+            {% if itm.type in msel %}
+            <div class="uk-grid uk-flex uk-flex-middle uk-margin-top" data-uk-grid>
+                <div class="uk-width-1-4 uk-flex-middle">
+                {{ itm.label }}
+                </div>
+                <div class="uk-width-1-4">
+                    <select class="uk-select" name="field~{{ itm.name }}" id="">
+                        <option value="">-------</option>
+                        {% for cat in clist %}
+                        <option value="{{ cat.0 }}" {% get_cat form.configs itm.name cat.0 %}>{{ cat.1 }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>    
+            {% endif %}
+            {% endfor %}
+            <div class="uk-grid uk-flex uk-flex-middle uk-margin-top" data-uk-grid>
+                <div class="uk-width-1-4 uk-flex-middle">
+                    <button type="submit" name="next" class="btn btn-primary btn-long uk-button uk-button-primary" id="submit-id-submit">{% trans "Save" %}</button>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}
+
+{% block js %}
+
+
+{% endblock js %}
